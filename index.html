@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viramayak 2026 | Faculty of Engineering - USJ</title>
+  <meta name="description"
+    content="Viramayak 2026 - Flagship Musical Extravaganza organized by the Faculty of Engineering, University of Sri Jayewardenepura. November 30, 2026 at Faculty Auditorium.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="r.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom Stylesheet (iOS 26 Liquid Glassmorphism) -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-[#070414] text-slate-100 antialiased selection:bg-purple-600 selection:text-white">
+
+  <!-- Canvas for Floating Music Notes & Particle Visualizer -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Background Music Audio Element (bg.wav) -->
+  <audio id="bg-music" src="bg.wav" loop preload="auto"></audio>
+
+  <!-- ===================================================================
+       1. HERO INTRO SPLASH OVERLAY (Large Centered Circular Cropped Logo)
+       =================================================================== -->
+  <div id="intro-screen">
+    <div class="intro-badge">
+      <img src="u.png" alt="USJ Emblem" class="w-5 h-5 object-contain">
+      <span>UNIVERSITY OF SRI JAYEWARDENEPURA</span>
+    </div>
+
+    <!-- Perfectly Circular Cropped Viramayak Logo -->
+    <div class="intro-logo-container my-4">
+      <div class="intro-logo-glow"></div>
+      <div class="logo-circle-wrapper">
+        <img src="r.png" alt="Viramayak Official Logo" class="intro-logo-img crop-circle-logo">
+      </div>
+    </div>
+
+    <h1 class="intro-title font-extrabold text-white tracking-tight">
+      Viramayak <span class="gradient-text">'26</span>
+    </h1>
+    <p class="intro-subtitle font-normal">
+      The Flagship Musical Extravaganza presented by the Faculty of Engineering.<br>
+      Join us for an unforgettable evening of rhythm, soul, and harmony.
+    </p>
+
+    <!-- Continue / Enter Button -->
+    <button id="enter-btn" class="btn-enter group">
+      <span>ENTER EXPERIENCE</span>
+      <i class="fa-solid fa-music text-purple-300 group-hover:rotate-12 transition-transform duration-300"></i>
+    </button>
+  </div>
+
+  <!-- ===================================================================
+       2. TOP GLASS NAVIGATION BAR
+       =================================================================== -->
+  <header>
+    <nav class="glass-nav">
+      <div class="glass-nav-top">
+        <!-- University & Event Logo -->
+        <a href="#hero" class="uni-logo-btn">
+          <img src="u.png" alt="USJ Logo" class="uni-logo-img">
+          <div class="flex flex-col text-left">
+            <span class="text-[10px] sm:text-xs font-bold tracking-wider text-purple-300 uppercase">Faculty of Engineering</span>
+            <span class="text-xs sm:text-sm font-extrabold text-white tracking-tight">University of Sri Jayewardenepura</span>
+          </div>
+        </a>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <!-- Ambient Sound Synth Toggle -->
+          <button id="sound-toggle" class="sound-toggle-btn" title="Toggle Music Audio">
+            <i class="fa-solid fa-volume-high"></i>
+          </button>
+
+          <a href="javascript:void(0);"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-purple-600/30 hover:bg-purple-600/50 border border-purple-400/40 backdrop-blur-md text-[11px] sm:text-xs font-bold text-white tracking-wider uppercase transition-all duration-300 shadow-lg shadow-purple-900/30">
+            <i class="fa-solid fa-chair text-xs text-purple-300"></i>
+            <span>Book Your Seat</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <ul class="nav-links">
+        <li><a href="#hero" class="nav-link">Home</a></li>
+        <li><a href="#countdown" class="nav-link">Countdown</a></li>
+        <li><a href="javascript:void(0);" id="open-trailer-nav"
+            class="nav-link text-purple-300 hover:text-purple-100 font-bold flex items-center gap-1.5"><i
+              class="fa-solid fa-circle-play text-pink-400 animate-pulse"></i>Watch Trailer</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#venue" class="nav-link">Venue</a></li>
+        <li><a href="#socials" class="nav-link">Official Pages</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- ===================================================================
+         3. HERO & COUNTDOWN SECTION
+         =================================================================== -->
+    <section id="hero" class="hero-section">
+      <!-- Main Viramayak Circular Logo & Title -->
+      <div class="relative flex flex-col items-center">
+        <div class="hero-logo-circle">
+          <img src="r.png" alt="Viramayak 2026 Concert Logo" class="hero-viramayak-logo crop-circle-logo">
+        </div>
+
+        <h1 class="hero-title text-white">
+          VIRAMAYAK <span class="gradient-text-gold">'26</span>
+        </h1>
+      </div>
+
+      <p class="hero-subtitle">
+        Step into a mesmerizing universe of live music, electrifying beats, and soul-stirring melodies crafted by the
+        Faculty of Engineering, University of Sri Jayewardenepura.
+      </p>
+
+      <!-- Floating Pill Badge (Above Countdown) -->
+      <!-- Live iOS 26 Glass Countdown Section -->
+      <div id="countdown" class="w-full flex flex-col items-center scroll-mt-32">
+        <div class="hero-pill-badge mb-6">
+          <i class="fa-solid fa-sparkles text-amber-400"></i>
+          <span>Official Event Countdown</span>
+        </div>
+
+        <div class="countdown-container">
+          <!-- Days Card -->
+          <div class="countdown-card">
+            <div id="cd-days" class="countdown-value">00</div>
+            <div class="countdown-label">Days</div>
+          </div>
+
+          <!-- Hours Card -->
+          <div class="countdown-card">
+            <div id="cd-hours" class="countdown-value">00</div>
+            <div class="countdown-label">Hours</div>
+          </div>
+
+          <!-- Minutes Card -->
+          <div class="countdown-card">
+            <div id="cd-mins" class="countdown-value">00</div>
+            <div class="countdown-label">Minutes</div>
+          </div>
+
+          <!-- Seconds Card -->
+          <div class="countdown-card">
+            <div id="cd-secs" class="countdown-value">00</div>
+            <div class="countdown-label">Seconds</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Highlighted Guest Artist Announcement Teaser Banner -->
+      <div class="artist-teaser-banner group">
+        <h3 class="artist-teaser-title">
+          <i class="fa-solid fa-microphone-lines text-pink-400 mr-2 group-hover:rotate-12 transition-transform"></i>
+          Guest Artist Will Be Announced Soon!
+        </h3>
+
+        <p class="text-sm sm:text-base text-slate-300 max-w-xl mx-auto leading-relaxed font-normal mb-4">
+          Set the stage for magic. A true Sri Lankan music legend joins us for an exclusive performance. Wait for it
+        </p>
+
+        <button id="open-trailer-hero-btn"
+          class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-500 hover:to-indigo-500 border border-pink-400/40 backdrop-blur-md text-xs sm:text-sm font-bold text-white shadow-xl hover:scale-105 transition-all duration-300">
+          <i class="fa-solid fa-circle-play text-lg text-pink-200 animate-pulse"></i>
+          <span>Watch Official Concert Trailer</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         4. ABOUT THE CONCERT SECTION
+         =================================================================== -->
+    <section id="about" class="section-container">
+      <div class="section-header">
+        <span class="section-tag">Faculty Tradition</span>
+        <h2 class="section-title text-white">Where Music & Engineering Harmonize</h2>
+        <p class="section-desc">
+          "Viramayak" represents a musical interlude in our rigorous engineering journey—a celebration of creativity,
+          rhythm, and togetherness.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Card 1 -->
+        <div class="glass-panel feature-card">
+          <div class="feature-icon-wrapper">
+            <i class="fa-solid fa-guitar"></i>
+          </div>
+          <h3 class="feature-title">Sensational Performances</h3>
+          <p class="feature-text">
+            Featuring top Sri Lankan musical artists alongside stellar musical talents from the Faculty of Engineering.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass-panel feature-card">
+          <div class="feature-icon-wrapper">
+            <i class="fa-solid fa-sliders"></i>
+          </div>
+          <h3 class="feature-title">Next-Gen Audio Visuals</h3>
+          <p class="feature-text">
+            Experience state-of-the-art stage lighting, surround sound engineering, and dynamic visual landscapes.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass-panel feature-card">
+          <div class="feature-icon-wrapper">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <h3 class="feature-title">Unforgettable Energy</h3>
+          <p class="feature-text">
+            Gather with over 1,000 students, alumni, and music lovers for an atmosphere like no other on campus.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         5. AUDITORIUM & VENUE SHOWCASE SECTION (audi.jpg Integration)
+         =================================================================== -->
+    <section id="venue" class="section-container">
+      <div class="section-header">
+        <span class="section-tag">Date & Location</span>
+        <h2 class="section-title text-white">The Official Venue</h2>
+        <p class="section-desc">
+          Mark your calendar for November 30, 2026. Join us at the world-class Faculty Auditorium.
+        </p>
+      </div>
+
+      <!-- High-Impact Auditorium Showcase Banner Card (audi.jpg) -->
+      <div class="venue-showcase-card group cursor-pointer" id="open-audi-modal">
+        <img src="audi.jpg" alt="Faculty Auditorium - USJ Engineering" class="venue-showcase-img">
+        <div class="venue-showcase-overlay"></div>
+
+        <div class="venue-showcase-content">
+          <div class="venue-badge-pill">
+            <i class="fa-solid fa-cubes text-purple-300"></i>
+            <span>Interactive 3D Auditorium View</span>
+          </div>
+
+          <h3 class="text-xl sm:text-3xl font-extrabold text-left mb-4 leading-snug">
+            <span class="text-purple-400">Faculty Auditorium</span><br>
+            <span class="text-white">Faculty of Engineering</span><br>
+            <span class="text-white">University of Sri Jayewardenepura</span>
+          </h3>
+
+          <p class="text-base text-slate-200 mb-6 leading-relaxed">
+            Equipped with state-of-the-art acoustics, acoustic wall paneling, purple plush seating, and multi-tier
+            lighting, providing an immersive concert experience.
+          </p>
+
+          <div class="flex flex-wrap gap-3">
+            <!-- 3D Explore Button -->
+            <button
+              class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 border border-purple-300/40 backdrop-blur-md text-sm font-bold text-white transition-all duration-300 shadow-xl group-hover:scale-105">
+              <i class="fa-solid fa-cube animate-bounce"></i>
+              <span>EXPLORE AUDITORIUM IN 3D</span>
+            </button>
+
+            <!-- Direct Google Maps Button -->
+            <a href="https://maps.app.goo.gl/E9mfZ9n7WdsTTSPW9" target="_blank" rel="noopener noreferrer"
+              onclick="event.stopPropagation();"
+              class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-blue-600/40 hover:bg-blue-600/70 border border-blue-300/40 backdrop-blur-md text-sm font-bold text-white transition-all duration-300 shadow-xl hover:scale-105">
+              <i class="fa-solid fa-map-location-dot"></i>
+              <span>Open Google Maps</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Venue Information Details Grid -->
+      <div class="venue-grid">
+        <!-- Info Details Card -->
+        <div class="glass-panel venue-info-card">
+          <div class="venue-item">
+            <div class="venue-icon">
+              <i class="fa-regular fa-calendar-check"></i>
+            </div>
+            <div>
+              <div class="venue-label">Date</div>
+              <div class="venue-value">Monday, November 30, 2026</div>
+            </div>
+          </div>
+
+          <div class="venue-item">
+            <div class="venue-icon">
+              <i class="fa-regular fa-clock"></i>
+            </div>
+            <div>
+              <div class="venue-label">Gates Open</div>
+              <div class="venue-value">6:00 PM (18:00 IST)</div>
+            </div>
+          </div>
+
+          <div class="venue-item">
+            <div class="venue-icon">
+              <i class="fa-solid fa-building-columns"></i>
+            </div>
+            <div>
+              <div class="venue-label">Venue</div>
+              <div class="venue-value">Faculty Auditorium</div>
+            </div>
+          </div>
+
+          <div class="venue-item">
+            <div class="venue-icon">
+              <i class="fa-solid fa-map-pin"></i>
+            </div>
+            <div>
+              <div class="venue-label">Google Maps Location</div>
+              <a href="https://maps.app.goo.gl/E9mfZ9n7WdsTTSPW9" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 mt-1 text-purple-300 hover:text-purple-100 font-semibold underline underline-offset-4 transition-colors">
+                <span>View Faculty Location on Maps</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Venue Location Visual Card featuring Google Maps Redirect -->
+        <div class="glass-panel venue-map-card">
+          <img src="audi.jpg" alt="Auditorium View" class="venue-map-bg">
+          <div class="venue-map-overlay"></div>
+          <div class="venue-map-content">
+            <div class="flex items-center justify-between">
+              <span
+                class="px-3 py-1 rounded-full bg-purple-500/30 border border-purple-400/40 backdrop-blur-md text-xs font-semibold text-purple-200">
+                <i class="fa-solid fa-location-crosshairs mr-1"></i> University of Sri Jayewardenepura
+              </span>
+              <img src="u.png" alt="USJ Logo" class="w-10 h-10 object-contain drop-shadow">
+            </div>
+
+            <div class="my-6">
+              <h3 class="text-2xl font-bold text-white mb-2">Faculty Auditorium</h3>
+              <p class="text-sm text-slate-300 leading-relaxed mb-3">
+                Faculty of Engineering, University of Sri Jayewardenepura,<br>
+                Sri Lanka.
+              </p>
+              <a href="https://maps.app.goo.gl/E9mfZ9n7WdsTTSPW9" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500/20 border border-blue-400/40 text-xs font-bold text-blue-300 hover:bg-blue-500/40 transition-colors">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span>Get Directions (Google Maps)</span>
+              </a>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <a href="https://maps.app.goo.gl/E9mfZ9n7WdsTTSPW9" target="_blank" rel="noopener noreferrer"
+                class="py-3 rounded-xl bg-blue-600/40 hover:bg-blue-600/70 border border-blue-400/40 backdrop-blur-md text-xs font-bold text-white transition-all duration-300 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-location-arrow"></i>
+                <span>Open Maps</span>
+              </a>
+
+              <button id="share-event-btn"
+                class="py-3 rounded-xl bg-purple-600/40 hover:bg-purple-600/70 border border-purple-400/40 backdrop-blur-md text-xs font-bold text-white transition-all duration-300 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-share-nodes"></i>
+                <span>Share Link</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         6. OFFICIAL SOCIAL MEDIA PAGES SECTION
+         =================================================================== -->
+    <section id="socials" class="section-container">
+      <div class="section-header">
+        <span class="section-tag">Stay Connected</span>
+        <h2 class="section-title text-white">Official Social Media Pages</h2>
+        <p class="section-desc">
+          Follow our official channels for real-time artist lineup announcements, teasers, rehearsals, and
+          behind-the-scenes content!
+        </p>
+      </div>
+
+      <div class="social-grid">
+        <!-- Facebook Page Card -->
+        <a href="https://www.facebook.com/Viramayaklive" target="_blank" rel="noopener noreferrer"
+          class="glass-panel social-card facebook-card group">
+          <div class="social-header">
+            <div class="social-icon-badge">
+              <i class="fa-brands fa-facebook-f"></i>
+            </div>
+            <span class="social-badge-label text-blue-400">Facebook Page</span>
+          </div>
+
+          <div class="social-handle">@Viramayaklive</div>
+          <p class="social-desc">
+            Official Facebook page of Viramayak. Join the community, react to artist reveals, and catch live updates.
+          </p>
+
+          <div class="social-btn">
+            <span>Visit Facebook Page</span>
+            <i
+              class="fa-solid fa-arrow-up-right-from-square group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- TikTok Page Card -->
+        <a href="https://www.tiktok.com/@viramayaklive" target="_blank" rel="noopener noreferrer"
+          class="glass-panel social-card tiktok-card group">
+          <div class="social-header">
+            <div class="social-icon-badge">
+              <i class="fa-brands fa-tiktok"></i>
+            </div>
+            <span class="social-badge-label text-pink-400">TikTok Channel</span>
+          </div>
+
+          <div class="social-handle">@viramayaklive</div>
+          <p class="social-desc">
+            Official TikTok handle for Viramayak. Watch exclusive short-form clips, acoustic sessions, and rehearsal
+            moments.
+          </p>
+
+          <div class="social-btn">
+            <span>Visit TikTok Page</span>
+            <i
+              class="fa-solid fa-arrow-up-right-from-square group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- YouTube Channel Card -->
+        <a href="https://www.youtube.com/@ViramayakLive" target="_blank" rel="noopener noreferrer"
+          class="glass-panel social-card youtube-card group">
+          <div class="social-header">
+            <div class="social-icon-badge">
+              <i class="fa-brands fa-youtube"></i>
+            </div>
+            <span class="social-badge-label text-red-400">YouTube Channel</span>
+          </div>
+
+          <div class="social-handle">@ViramayakLive</div>
+          <p class="social-desc">
+            Official YouTube channel of Viramayak. Subscribe to watch full concert streams, HD official teasers, and
+            performance highlights.
+          </p>
+
+          <div class="social-btn">
+            <span>Subscribe on YouTube</span>
+            <i
+              class="fa-solid fa-arrow-up-right-from-square group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+          </div>
+        </a>
+
+        <!-- Instagram Page Card -->
+        <a href="https://www.instagram.com/viramayaklive/" target="_blank" rel="noopener noreferrer"
+          class="glass-panel social-card instagram-card group">
+          <div class="social-header">
+            <div class="social-icon-badge">
+              <i class="fa-brands fa-instagram"></i>
+            </div>
+            <span class="social-badge-label text-pink-400">Instagram Page</span>
+          </div>
+
+          <div class="social-handle">@viramayaklive</div>
+          <p class="social-desc">
+            Official Instagram handle for Viramayak. Follow for backstage stories, artist reveals, rehearsal clips, and
+            reels.
+          </p>
+
+          <div class="social-btn">
+            <span>Follow on Instagram</span>
+            <i
+              class="fa-solid fa-arrow-up-right-from-square group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================================================================
+       7. INTERACTIVE 3D AUDITORIUM VIEWPORT MODAL (audi.jpg)
+       =================================================================== -->
+  <div id="audi-modal" class="modal-overlay">
+    <div class="modal-container">
+      <!-- Close Button -->
+      <button id="close-audi-modal" class="modal-close-btn" title="Close modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- 3D Interactive Spatial Viewport Container -->
+      <div id="audi-3d-scene" class="audi-3d-scene">
+        <!-- 3D Floating Badge -->
+        <div class="audi-3d-badge">
+          <i class="fa-solid fa-compass animate-spin text-purple-400"></i>
+          <span>Interactive 3D Perspective — Move Mouse / Drag to Pan</span>
+        </div>
+
+        <!-- 3D Card Plane -->
+        <div id="audi-3d-card" class="audi-3d-card">
+          <img src="audi.jpg" alt="Faculty Auditorium Full View" class="audi-3d-image">
+          <!-- 3D Stage Beams & Spotlights Overlay -->
+          <div id="stage-beams" class="stage-beams"></div>
+          <div class="stage-lights-overlay"></div>
+        </div>
+      </div>
+
+      <!-- Controls & Information Panel -->
+      <div class="p-6 sm:p-8 bg-slate-950/80">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span
+                class="px-3 py-1 rounded-full bg-purple-500/30 border border-purple-400/40 text-xs font-bold text-purple-300 uppercase">
+                Official Concert Hall
+              </span>
+              <span class="text-xs text-slate-400">Engineering Faculty • USJ</span>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white">
+              Faculty Auditorium (3D Interactive View)
+            </h3>
+          </div>
+
+          <!-- 3D Controls Bar -->
+          <div class="flex items-center gap-2">
+            <button id="toggle-beams-btn"
+              class="px-3 py-2 rounded-xl bg-purple-600/30 hover:bg-purple-600/60 border border-purple-400/40 text-xs font-bold text-purple-200 transition-colors flex items-center gap-2"
+              title="Toggle Stage Laser Lights">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <span>Toggle 3D Lights</span>
+            </button>
+            <button id="reset-3d-btn"
+              class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-xs font-bold text-slate-200 transition-colors flex items-center gap-2"
+              title="Reset View">
+              <i class="fa-solid fa-rotate-left"></i>
+              <span>Reset 3D</span>
+            </button>
+          </div>
+        </div>
+
+        <p class="text-sm sm:text-base text-slate-300 leading-relaxed mb-5">
+          Step inside the Faculty Auditorium for Viramayak '26. Featuring acoustically treated wall paneling, purple
+          plush theater seats, surround audio integration, and a wide main stage.
+        </p>
+
+        <!-- CTA Action Buttons -->
+        <div class="flex flex-wrap items-center gap-3">
+          <a href="https://maps.app.goo.gl/E9mfZ9n7WdsTTSPW9" target="_blank" rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-sm font-bold text-white shadow-lg transition-all">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <span>Open Directions on Google Maps</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       TRAILER LIGHTBOX VIDEO MODAL
+       =================================================================== -->
+  <div id="trailer-modal" class="modal-overlay">
+    <div class="modal-container max-w-4xl p-0 overflow-hidden">
+      <!-- Close Button -->
+      <button id="close-trailer-modal" class="modal-close-btn z-20" title="Close Trailer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Video Player Responsive Aspect-Ratio Container -->
+      <div class="trailer-video-wrapper">
+        <iframe id="trailer-iframe"
+          src=""
+          allowfullscreen="true"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+        </iframe>
+      </div>
+
+      <!-- Controls & Information Bar -->
+      <div class="p-4 sm:p-6 bg-slate-950/95 border-t border-purple-500/20 trailer-info-bar">
+        <div class="flex items-center gap-2 mb-1">
+          <span
+            class="px-3 py-0.5 rounded-full bg-pink-500/30 border border-pink-400/40 text-xs font-bold text-pink-300 uppercase">
+            <i class="fa-solid fa-film mr-1"></i> Official Trailer
+          </span>
+          <span class="text-xs text-slate-400">Viramayak '26</span>
+        </div>
+        <h3 class="text-lg sm:text-2xl font-extrabold text-white">
+          Viramayak 2026 — Official Concert Teaser Reel
+        </h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       8. FOOTER
+       =================================================================== -->
+  <footer class="footer-glass">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo-badge">
+          <img src="u.png" alt="University Logo" class="footer-logo-img crop-circle-logo">
+        </div>
+        <div class="footer-logo-badge footer-event-badge">
+          <img src="r.png" alt="Viramayak Logo" class="footer-logo-img crop-circle-logo">
+        </div>
+      </div>
+
+      <h3 class="text-xl font-bold text-white mb-2">Viramayak '26</h3>
+      <p class="footer-text">
+        Organized by the Faculty of Engineering, University of Sri Jayewardenepura.<br>
+        Celebrating music, artistry, and engineering excellence.
+      </p>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 Viramayak. Faculty of Engineering, University of Sri Jayewardenepura.
+        </div>
+        <div class="flex gap-4 text-slate-400">
+          <a href="https://www.facebook.com/Viramayaklive" target="_blank"
+            class="hover:text-purple-400 transition-colors" title="Facebook Page">
+            <i class="fa-brands fa-facebook text-lg"></i>
+          </a>
+          <a href="https://www.instagram.com/viramayaklive/" target="_blank"
+            class="hover:text-pink-400 transition-colors" title="Instagram Page">
+            <i class="fa-brands fa-instagram text-lg"></i>
+          </a>
+          <a href="https://www.tiktok.com/@viramayaklive" target="_blank"
+            class="hover:text-purple-400 transition-colors" title="TikTok Channel">
+            <i class="fa-brands fa-tiktok text-lg"></i>
+          </a>
+          <a href="https://www.youtube.com/@ViramayakLive" target="_blank" class="hover:text-red-500 transition-colors"
+            title="YouTube Channel">
+            <i class="fa-brands fa-youtube text-lg"></i>
+          </a>
+          <a href="https://maps.app.goo.gl/E9mfZ9n7WdsTTSPW9" target="_blank"
+            class="hover:text-purple-400 transition-colors" title="Google Maps Location">
+            <i class="fa-solid fa-map-location-dot text-lg"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Action Button -->
+  <a href="https://api.whatsapp.com/send?phone=%2B94701250415&token=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjEyNSJ9.eyJleHAiOjE3ODQ5NTY0MDcsInBob25lIjoiKzk0NzAxMjUwNDE1IiwiY29udGV4dCI6IkFmakY1am9VRjh4aHRmM3M4aVJRMDlFcXJIUkpaeXBnZzNUVWtoeGxnVFMwT01iRzJYbWdRdGFqUjhtb2E5SWNlSjA1RGpsYlc0Q0ZiR09CNmF4UmVFR2tiY0dMNjlDcENXWjRVZmZfMmxXYk84OXF2SFd4ZUs0LXVkUFUzU1NUVUI3RFdVWHhWMWdINXQ2c3pzMXdsSnhSSGciLCJzb3VyY2UiOiJGQl9QYWdlIiwiYXBwIjoiZmFjZWJvb2siLCJlbnRyeV9wb2ludCI6InBhZ2VfY3RhIn0.--yWoExh6C1eCrhIiv9ZX0c_I2zCGnHGXSRRUVuNeKuxuJ_G3Gv28xRlqJn3PMd9Vv8RO427dPFu3UoDCO4H_w&fbclid=IwY2xjawTP4UFleHRuA2FlbQIxMABicmlkETJNcExwTmFrS3NCZUN5M3dQc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHu1l0KwxrD5wbO5ETXU-98Bh6HH4nqCe91ho_Di0hMpEUGwMLnNXtdUpuSw8_aem_nPmX1A6m2cH6NL3dfHXl8g"
+    target="_blank" rel="noopener noreferrer" class="whatsapp-float-btn" title="Chat on WhatsApp (+94 70 125 0415)">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-notification" class="toast-msg">
+    <i class="fa-solid fa-circle-check text-purple-400"></i>
+    <span id="toast-msg-text">Event link copied!</span>
+  </div>
+
+  <!-- JavaScript File -->
+  <script src="app.js"></script>
+</body>
+
+</html>
